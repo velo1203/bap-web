@@ -1,4 +1,4 @@
-# 밥 웹(Rice Web)
+# 밥 웹(Bap Web)
 
 <img src="./밥 랜딩페이지.png"/>
 
