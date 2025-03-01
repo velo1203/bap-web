@@ -31,7 +31,7 @@ export const Header = styled.header`
         justify-content: center;
         width: 55px;
         height: 55px;
-        border: 3px solid ${(props) => props.theme.colors.primary};
+        border: 3px solid black;
         border-radius: 5px;
         margin-left: 5px;
     }
@@ -48,6 +48,7 @@ export const Header = styled.header`
             width: 40px;
             height: 40px;
             font-size: 1.2rem;
+            border: 2px solid black;
         }
     }
 `;

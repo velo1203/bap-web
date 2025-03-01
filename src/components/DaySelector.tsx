@@ -7,8 +7,8 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { format } from "date-fns";
 import { addDays, subDays } from "date-fns";
-
 const SelectorContainer = styled.div`
+    /* 📌 날짜 선택 컨테이너 */
     flex: 1;
     display: flex;
     align-items: center;
@@ -17,6 +17,10 @@ const SelectorContainer = styled.div`
     background: ${(props) => props.theme.colors.uiBackground};
     border-radius: 5px;
     box-shadow: inset 0 0 0 2px ${(props) => props.theme.colors.border}; /* 연한 테두리 */
+
+    ${(props) => props.theme.media.mobile} {
+        height: 50px;
+    }
 `;
 
 const SelectorBox = styled.div`
@@ -27,6 +31,12 @@ const SelectorBox = styled.div`
     font-size: 1.2rem;
     height: 70px;
     user-select: none;
+
+    ${(props) => props.theme.media.mobile} {
+        font-size: 1rem;
+        height: 50px;
+        gap: 5px;
+    }
 `;
 
 const ArrowButton = styled.button`
@@ -43,6 +53,12 @@ const ArrowButton = styled.button`
     &:hover {
         background-color: ${(props) => props.theme.colors.background};
     }
+
+    ${(props) => props.theme.media.mobile} {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
 `;
 
 const DateDisplay = styled.div`
@@ -53,6 +69,11 @@ const DateDisplay = styled.div`
     align-items: center;
     gap: 8px;
     transition: all 0.1s ease-in-out;
+
+    ${(props) => props.theme.media.mobile} {
+        padding: 5px 5px;
+        font-size: 0.8rem;
+    }
 `;
 
 type DaySelectorProps = {
