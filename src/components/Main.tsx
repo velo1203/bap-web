@@ -101,12 +101,13 @@ function Main() {
         },
     });
 
-    const mealData = [
-        { type: "breakfast", menu: Meal?.breakfast || NoMenu },
-        { type: "lunch", menu: Meal?.lunch || NoMenu },
-        { type: "dinner", menu: Meal?.dinner || NoMenu },
-    ];
+    type MealType = "breakfast" | "lunch" | "dinner";
 
+    const mealData = [
+        { type: "breakfast" as MealType, menu: Meal?.breakfast || NoMenu },
+        { type: "lunch" as MealType, menu: Meal?.lunch || NoMenu },
+        { type: "dinner" as MealType, menu: Meal?.dinner || NoMenu },
+    ];
     if (startIndex === null) return null; // startIndex가 설정되기 전까지 렌더링 방지
 
     const sliderSettings = {
