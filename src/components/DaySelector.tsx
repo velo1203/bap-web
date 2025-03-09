@@ -79,6 +79,13 @@ const DateDisplay = styled.div`
 type DaySelectorProps = {
     onChange?: (date: Date) => void;
 };
+function getDayOfWeek(날짜문자열) {
+    const week = ["일", "월", "화", "수", "목", "금", "토"];
+
+    const dayOfWeek = week[new Date(날짜문자열).getDay()];
+
+    return dayOfWeek;
+}
 
 const DaySelector = ({ onChange }: DaySelectorProps) => {
     const [selectedDate, setSelectedDate] = useState(new Date());
@@ -99,7 +106,9 @@ const DaySelector = ({ onChange }: DaySelectorProps) => {
                     <FontAwesomeIcon icon={faChevronLeft} />
                 </ArrowButton>
 
-                <DateDisplay>{formattedDate}</DateDisplay>
+                <DateDisplay>
+                    {formattedDate} {getDayOfWeek(formattedDate)}요일
+                </DateDisplay>
 
                 <ArrowButton onClick={() => changeDate(1)}>
                     <FontAwesomeIcon icon={faChevronRight} />
