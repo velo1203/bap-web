@@ -25,16 +25,6 @@ export const Header = styled.header`
         color: ${(props) => props.theme.colors.dimigo};
     }
 
-    span {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 55px;
-        height: 55px;
-        border: 3px solid black;
-        border-radius: 5px;
-        margin-left: 5px;
-    }
     ${(props) => props.theme.media.mobile} {
         padding: 20px;
         margin-top: 20px;
