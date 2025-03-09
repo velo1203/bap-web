@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import {
     CardSection,
     Container,
@@ -7,7 +8,7 @@ import {
     MenuSection,
 } from "./styled.Main";
 import axios from "axios";
-import { format } from "date-fns/format";
+import { format } from "date-fns";
 import MealCard from "./MealCard";
 import DaySelector from "./DaySelector";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -28,37 +29,25 @@ type MealType = {
 const errorComment = "급식을 불러올 수 없습니다";
 const NoMenu = "메뉴 정보 없음";
 
+const fetchMeal = async (date: string) => {
+    const { data } = await axios.get<MealType>(`https://api.밥.net/${date}`);
+    return data;
+};
+
 function Main() {
-    const [loading, setLoading] = useState(true);
-    const [Meal, setMeal] = useState<MealType | null>(null);
     const [Day, setDay] = useState<Date>(new Date());
-    const [error, setError] = useState(false);
 
-    const handleDateChange = (newDate: Date) => {
-        setDay(newDate);
-    };
+    const formattedDate = format(Day, "yyyy-MM-dd");
 
-    useEffect(() => {
-        const formattedDate = format(Day, "yyyy-MM-dd");
-        console.log(`📅 API 호출: https://api.밥.net/${formattedDate}`);
-
-        setLoading(true);
-        setError(false);
-
-        axios
-            .get<MealType>(`https://api.밥.net/${formattedDate}`)
-            .then((res) => {
-                setMeal(res.data);
-            })
-            .catch((error) => {
-                console.error("API 호출 오류:", error);
-                setMeal(null);
-                setError(true);
-            })
-            .finally(() => {
-                setLoading(false);
-            });
-    }, [Day]);
+    const {
+        data: Meal,
+        isLoading,
+        isError,
+    } = useQuery({
+        queryKey: ["meal", formattedDate],
+        queryFn: () => fetchMeal(formattedDate),
+        staleTime: 1000 * 60 * 5, // 5분 동안 캐싱 유지
+    });
 
     return (
         <Container>
@@ -68,18 +57,12 @@ function Main() {
                 </h1>
                 <MenuSection>
                     <Menu
-                        onClick={() => {
-                            window.location.href = config.github;
-                        }}
+                        onClick={() => (window.location.href = config.github)}
                     >
                         <FontAwesomeIcon icon={faGithub} />
                     </Menu>
-                    <DaySelector onChange={handleDateChange} />
-                    <Menu
-                        onClick={() => {
-                            window.location.href = config.insta;
-                        }}
-                    >
+                    <DaySelector onChange={setDay} />
+                    <Menu onClick={() => (window.location.href = config.insta)}>
                         <FontAwesomeIcon icon={faInstagram} />
                     </Menu>
                 </MenuSection>
@@ -88,35 +71,35 @@ function Main() {
                 <MealCard
                     type="breakfast"
                     menu={
-                        loading
+                        isLoading
                             ? ""
-                            : error
+                            : isError
                             ? errorComment
                             : Meal?.breakfast || NoMenu
                     }
-                    loading={loading}
+                    loading={isLoading}
                 />
                 <MealCard
                     type="lunch"
                     menu={
-                        loading
+                        isLoading
                             ? ""
-                            : error
+                            : isError
                             ? errorComment
                             : Meal?.lunch || NoMenu
                     }
-                    loading={loading}
+                    loading={isLoading}
                 />
                 <MealCard
                     type="dinner"
                     menu={
-                        loading
+                        isLoading
                             ? ""
-                            : error
+                            : isError
                             ? errorComment
                             : Meal?.dinner || NoMenu
                     }
-                    loading={loading}
+                    loading={isLoading}
                 />
             </CardSection>
         </Container>
