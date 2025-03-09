@@ -79,10 +79,10 @@ const DateDisplay = styled.div`
 type DaySelectorProps = {
     onChange?: (date: Date) => void;
 };
-function getDayOfWeek(날짜문자열) {
+function getDayOfWeek(day: string) {
     const week = ["일", "월", "화", "수", "목", "금", "토"];
 
-    const dayOfWeek = week[new Date(날짜문자열).getDay()];
+    const dayOfWeek = week[new Date(day).getDay()];
 
     return dayOfWeek;
 }
