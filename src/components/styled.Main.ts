@@ -33,13 +33,6 @@ export const Header = styled.header`
             font-size: ${(props) =>
                 props.theme.mobileFontSize.medium}; /* 모바일에서 크기 조정 */
         }
-
-        span {
-            width: 40px;
-            height: 40px;
-            font-size: 1.2rem;
-            border: 2px solid black;
-        }
     }
 `;
 
@@ -94,7 +87,7 @@ export const Card = styled.div<{ loading?: boolean }>`
     border-radius: 5px;
 
     text-align: left;
-    transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in;
     min-height: 500px;
     ${(props) =>
         props.loading &&
@@ -108,10 +101,6 @@ export const Card = styled.div<{ loading?: boolean }>`
             background-size: 200% 100%;
             animation: ${shimmer} 1.5s infinite linear;
         `};
-
-    &:hover {
-        box-shadow: inset 0 0 0 2px ${(props) => props.theme.colors.primary};
-    }
 `;
 export const Title = styled.h2`
     font-size: ${(props) => props.theme.fontsize.medium};

@@ -11,7 +11,7 @@ export const theme = {
     },
     mobileFontSize: {
         small: "1rem",
-        medium: "1.2rem",
+        medium: "1.3rem",
         large: "1.6rem",
     },
     fontsize: {
