@@ -20,7 +20,7 @@ export const theme = {
         large: "2rem",
     },
     media: {
-        mobile: "@media screen and (max-width: 600px)",
+        mobile: "@media screen and (max-width: 768px)",
         tablet: "@media screen and (max-width: 1024px)",
     },
 };

@@ -1,19 +1,24 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import {
-    CardSection,
     Container,
     Header,
     Menu,
     MenuSection,
+    CardSection,
+    MobileCarouselWrapper,
 } from "./styled.Main";
 import axios, { AxiosError } from "axios";
-import { format } from "date-fns";
+import { format, addDays } from "date-fns";
 import MealCard from "./MealCard";
 import DaySelector from "./DaySelector";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub, faInstagram } from "@fortawesome/free-brands-svg-icons";
 import config from "../config.json";
+import Slider from "react-slick";
+
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 type MealType = {
     breakfast: string;
@@ -47,6 +52,38 @@ const fetchMeal = async (date: string) => {
 
 function Main() {
     const [Day, setDay] = useState<Date>(new Date());
+    const [startIndex, setStartIndex] = useState<number | null>(null);
+    const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth < 768);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+
+        window.addEventListener("resize", handleResize);
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, []);
+
+    useEffect(() => {
+        const now = new Date();
+        const hour = now.getHours();
+
+        if (hour < 8) {
+            setStartIndex(0);
+            setDay(now);
+        } else if (hour < 13) {
+            setStartIndex(1);
+            setDay(now);
+        } else if (hour < 19) {
+            setStartIndex(2);
+            setDay(now);
+        } else {
+            setStartIndex(0);
+            setDay(addDays(now, 1));
+        }
+    }, []);
 
     const formattedDate = format(Day, "yyyy-MM-dd");
 
@@ -57,12 +94,31 @@ function Main() {
     } = useQuery({
         queryKey: ["meal", formattedDate],
         queryFn: () => fetchMeal(formattedDate),
-        staleTime: 1000 * 60 * 5, // 5분 동안 캐싱 유지
+        staleTime: 1000 * 60 * 5,
         retry: (failureCount, err) => {
-            if (err.message === "404") return false; // 404면 재시도 안함
-            return failureCount < 3; // 그 외의 경우 3회까지 재시도
+            if (err.message === "404") return false;
+            return failureCount < 3;
         },
     });
+
+    const mealData = [
+        { type: "breakfast", menu: Meal?.breakfast || NoMenu },
+        { type: "lunch", menu: Meal?.lunch || NoMenu },
+        { type: "dinner", menu: Meal?.dinner || NoMenu },
+    ];
+
+    if (startIndex === null) return null; // startIndex가 설정되기 전까지 렌더링 방지
+
+    const sliderSettings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: false,
+        initialSlide: startIndex,
+    };
+
     return (
         <Container>
             <Header>
@@ -81,41 +137,44 @@ function Main() {
                     </Menu>
                 </MenuSection>
             </Header>
-            <CardSection>
-                <MealCard
-                    type="breakfast"
-                    menu={
-                        isLoading
-                            ? ""
-                            : isError
-                            ? errorComment
-                            : Meal?.breakfast || NoMenu
-                    }
-                    loading={isLoading}
-                />
-                <MealCard
-                    type="lunch"
-                    menu={
-                        isLoading
-                            ? ""
-                            : isError
-                            ? errorComment
-                            : Meal?.lunch || NoMenu
-                    }
-                    loading={isLoading}
-                />
-                <MealCard
-                    type="dinner"
-                    menu={
-                        isLoading
-                            ? ""
-                            : isError
-                            ? errorComment
-                            : Meal?.dinner || NoMenu
-                    }
-                    loading={isLoading}
-                />
-            </CardSection>
+
+            {isMobile ? (
+                <MobileCarouselWrapper>
+                    <Slider {...sliderSettings}>
+                        {mealData.map((meal, index) => (
+                            <MealCard
+                                key={index}
+                                type={meal.type}
+                                menu={
+                                    isLoading
+                                        ? ""
+                                        : isError
+                                        ? errorComment
+                                        : meal.menu
+                                }
+                                loading={isLoading}
+                            />
+                        ))}
+                    </Slider>
+                </MobileCarouselWrapper>
+            ) : (
+                <CardSection>
+                    {mealData.map((meal, index) => (
+                        <MealCard
+                            key={index}
+                            type={meal.type}
+                            menu={
+                                isLoading
+                                    ? ""
+                                    : isError
+                                    ? errorComment
+                                    : meal.menu
+                            }
+                            loading={isLoading}
+                        />
+                    ))}
+                </CardSection>
+            )}
         </Container>
     );
 }

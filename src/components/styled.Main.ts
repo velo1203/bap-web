@@ -112,3 +112,16 @@ export const Description = styled.p`
     font-size: ${(props) => props.theme.fontsize.small};
     color: ${(props) => props.theme.colors.text};
 `;
+export const MobileCarouselWrapper = styled.div`
+    width: 100%;
+
+    margin-top: 20px;
+
+    @media (min-width: 768px) {
+        display: none; /* 데스크탑에서는 캐러셀 숨김 */
+    }
+
+    .slick-dots {
+        bottom: -25px;
+    }
+`;
