@@ -7,7 +7,7 @@ import {
     Menu,
     MenuSection,
 } from "./styled.Main";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { format } from "date-fns";
 import MealCard from "./MealCard";
 import DaySelector from "./DaySelector";
@@ -30,8 +30,19 @@ const errorComment = "급식을 불러올 수 없습니다";
 const NoMenu = "메뉴 정보 없음";
 
 const fetchMeal = async (date: string) => {
-    const { data } = await axios.get<MealType>(`https://api.밥.net/${date}`);
-    return data;
+    try {
+        const { data } = await axios.get<MealType>(
+            `https://api.밥.net/${date}`
+        );
+        return data;
+    } catch (error: unknown) {
+        const axiosError = error as AxiosError;
+
+        if (axiosError.response && axiosError.response.status === 404) {
+            throw new Error("404");
+        }
+        throw error;
+    }
 };
 
 function Main() {
@@ -47,8 +58,11 @@ function Main() {
         queryKey: ["meal", formattedDate],
         queryFn: () => fetchMeal(formattedDate),
         staleTime: 1000 * 60 * 5, // 5분 동안 캐싱 유지
+        retry: (failureCount, err) => {
+            if (err.message === "404") return false; // 404면 재시도 안함
+            return failureCount < 3; // 그 외의 경우 3회까지 재시도
+        },
     });
-
     return (
         <Container>
             <Header>
