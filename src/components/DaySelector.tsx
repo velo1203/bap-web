@@ -35,7 +35,7 @@ const SelectorBox = styled.div`
     ${(props) => props.theme.media.mobile} {
         font-size: 1rem;
         height: 50px;
-        gap: 5px;
+        gap: 15px;
     }
 `;
 
@@ -63,7 +63,7 @@ const ArrowButton = styled.button`
 
 const DateDisplay = styled.div`
     font-weight: bold;
-    padding: 10px 20px;
+    padding: 10px 30px;
     border-radius: 5px;
     display: flex;
     align-items: center;
@@ -72,7 +72,7 @@ const DateDisplay = styled.div`
 
     ${(props) => props.theme.media.mobile} {
         padding: 5px 5px;
-        font-size: 0.8rem;
+        font-size: 0.9rem;
     }
 `;
 

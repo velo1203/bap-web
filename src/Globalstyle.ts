@@ -15,10 +15,7 @@ export const GlobalStyle = createGlobalStyle`
 
     padding: 25px;
     background-color: ${(props) => props.theme.colors.background};
-    ${(props) => props.theme.media.mobile} {
 
-        padding-top: 30px;
-    }
   }
 
 `;

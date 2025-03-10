@@ -27,12 +27,12 @@ export const Header = styled.header`
 
     ${(props) => props.theme.media.mobile} {
         padding: 20px;
-        margin-top: 20px;
+        margin-top: 5px;
 
         h1 {
             font-size: ${(props) =>
                 props.theme.mobileFontSize.medium}; /* 모바일에서 크기 조정 */
-            margin-bottom: 20px;
+            margin-bottom: 8px;
         }
     }
 `;
