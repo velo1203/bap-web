@@ -127,17 +127,51 @@ function Main() {
                 <h1>
                     디미고 <span>밥</span>
                 </h1>
-                <MenuSection>
-                    <Menu
-                        onClick={() => (window.location.href = config.github)}
-                    >
-                        <FontAwesomeIcon icon={faGithub} />
-                    </Menu>
-                    <DaySelector onChange={setDay} />
-                    <Menu onClick={() => (window.location.href = config.insta)}>
-                        <FontAwesomeIcon icon={faInstagram} />
-                    </Menu>
-                </MenuSection>
+
+                {isMobile ? (
+                    <>
+                        <MenuSection>
+                            <DaySelector onChange={setDay} />
+                        </MenuSection>
+                        <MenuSection>
+                            <Menu
+                                onClick={() =>
+                                    (window.location.href = config.github)
+                                }
+                            >
+                                <FontAwesomeIcon icon={faGithub} />
+                            </Menu>
+
+                            <Menu
+                                onClick={() =>
+                                    (window.location.href = config.insta)
+                                }
+                            >
+                                <FontAwesomeIcon icon={faInstagram} />
+                            </Menu>
+                        </MenuSection>
+                    </>
+                ) : (
+                    <>
+                        <MenuSection>
+                            <Menu
+                                onClick={() =>
+                                    (window.location.href = config.github)
+                                }
+                            >
+                                <FontAwesomeIcon icon={faGithub} />
+                            </Menu>
+                            <DaySelector onChange={setDay} />
+                            <Menu
+                                onClick={() =>
+                                    (window.location.href = config.insta)
+                                }
+                            >
+                                <FontAwesomeIcon icon={faInstagram} />
+                            </Menu>
+                        </MenuSection>
+                    </>
+                )}
             </Header>
 
             {isMobile ? (

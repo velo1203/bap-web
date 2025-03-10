@@ -32,6 +32,7 @@ export const Header = styled.header`
         h1 {
             font-size: ${(props) =>
                 props.theme.mobileFontSize.medium}; /* 모바일에서 크기 조정 */
+            margin-bottom: 20px;
         }
     }
 `;
@@ -44,8 +45,8 @@ export const MenuSection = styled.div`
     margin-top: 30px;
     ${(props) => props.theme.media.mobile} {
         flex-direction: row;
-        gap: 10px;
-        margin-top: 15px;
+        gap: 8px;
+        margin-top: 5px;
     }
 `;
 
@@ -66,9 +67,9 @@ export const Menu = styled.div`
         background-color: ${(props) => props.theme.colors.background};
     }
     ${(props) => props.theme.media.mobile} {
-        width: 60px;
         height: 50px;
         font-size: 20px;
+        flex: 1;
     }
 `;
 
