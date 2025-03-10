@@ -6,6 +6,7 @@ export const theme = {
         background: "#F0F1F3",
         text: "#0A1114",
         uiBackground: "#F8F9FA",
+        uiBackground_hover: "#f7f7f7",
         border: "#e3e3e5",
         dimigo: "#EA1783",
     },

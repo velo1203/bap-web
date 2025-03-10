@@ -85,9 +85,10 @@ export const Card = styled.div<{ loading?: boolean }>`
     padding: 20px;
     background: ${(props) => props.theme.colors.uiBackground};
     border-radius: 5px;
+    cursor: pointer;
 
     text-align: left;
-    transition: all 0.1s ease-in;
+    transition: all 0.2s ease-in-out;
     min-height: 500px;
     ${(props) =>
         props.loading &&
@@ -101,6 +102,11 @@ export const Card = styled.div<{ loading?: boolean }>`
             background-size: 200% 100%;
             animation: ${shimmer} 1.5s infinite linear;
         `};
+
+    &:hover {
+        background-color: ${(props) => props.theme.colors.uiBackground_hover};
+        transform: scale(1.02);
+    }
 `;
 export const Title = styled.h2`
     font-size: ${(props) => props.theme.fontsize.medium};

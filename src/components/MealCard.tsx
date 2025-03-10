@@ -9,9 +9,27 @@ type MealCardProps = {
 const MealCard = ({ type, menu, loading }: MealCardProps) => {
     const mealTitle =
         type === "breakfast" ? "조식" : type === "lunch" ? "중식" : "석식";
-
+    const handleShare = async () => {
+        if (navigator.share) {
+            try {
+                await navigator.share({
+                    title: `${mealTitle} 메뉴`,
+                    text: `오늘의 ${mealTitle}: \n${menu.replace(/\//g, "\n")}`,
+                });
+            } catch (error) {
+                console.error("공유 실패:", error);
+            }
+        } else {
+            alert("이 브라우저에서는 공유 기능을 지원하지 않습니다.");
+        }
+    };
     return (
-        <Card loading={loading}>
+        <Card
+            loading={loading}
+            onClick={() => {
+                handleShare();
+            }}
+        >
             {!loading && (
                 <>
                     <Title>{mealTitle}</Title>
