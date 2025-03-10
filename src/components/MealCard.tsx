@@ -14,7 +14,10 @@ const MealCard = ({ type, menu, loading }: MealCardProps) => {
             try {
                 await navigator.share({
                     title: `${mealTitle} 메뉴`,
-                    text: `오늘의 ${mealTitle}: \n${menu.replace(/\//g, "\n")}`,
+                    text: `<오늘의 ${mealTitle}> \n\n${menu.replace(
+                        /\//g,
+                        "\n"
+                    )}\n\n급식 정보는? 밥.net`,
                 });
             } catch (error) {
                 console.error("공유 실패:", error);
