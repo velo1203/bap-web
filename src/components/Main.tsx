@@ -118,6 +118,7 @@ function Main() {
         slidesToScroll: 1,
         autoplay: false,
         initialSlide: startIndex,
+        arrows: false,
     };
 
     return (
