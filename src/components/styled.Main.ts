@@ -45,8 +45,8 @@ export const MenuSection = styled.div`
     margin-top: 30px;
     ${(props) => props.theme.media.mobile} {
         flex-direction: row;
-        gap: 8px;
-        margin-top: 5px;
+        gap: 4px;
+        margin-top: 4px;
     }
 `;
 
