@@ -13,6 +13,9 @@ export default defineConfig({
                 short_name: "밥",
                 description: "디미고밥",
                 theme_color: "#FFFFFF",
+                background_color: "#FFFFFF",
+                display: "standalone",
+                start_url: "/",
                 icons: [
                     {
                         src: "/pwa-192x192.png",
@@ -22,6 +25,11 @@ export default defineConfig({
                     {
                         src: "/pwa-512x512.png",
                         sizes: "512x512",
+                        type: "image/png",
+                    },
+                    {
+                        src: "/apple-touch-icon.png",
+                        sizes: "180x180",
                         type: "image/png",
                     },
                 ],
@@ -38,6 +46,15 @@ export default defineConfig({
                                 maxEntries: 50,
                                 maxAgeSeconds: 30 * 24 * 60 * 60,
                             },
+                        },
+                    },
+                    {
+                        urlPattern: ({ request }) =>
+                            request.destination === "script" ||
+                            request.destination === "style",
+                        handler: "StaleWhileRevalidate",
+                        options: {
+                            cacheName: "assets-cache",
                         },
                     },
                 ],
