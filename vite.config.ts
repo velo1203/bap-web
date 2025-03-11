@@ -12,8 +12,8 @@ export default defineConfig({
                 name: "밥",
                 short_name: "밥",
                 description: "디미고밥",
-                theme_color: "#FFFFFF",
-                background_color: "#FFFFFF",
+                theme_color: "#F0F1F3",
+                background_color: "#F0F1F3",
                 display: "standalone",
                 start_url: "/",
                 icons: [
