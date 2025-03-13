@@ -29,6 +29,13 @@ export const Container = styled.div`
     max-width: 1200px;
     width: 100%;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+
+    ${(props) => props.theme.media.mobile} {
+        flex-direction: column-reverse;
+        gap: 8px;
+    }
 `;
 
 export const Header = styled.header`
@@ -152,9 +159,14 @@ export const SelectorContainer = styled.div`
     align-items: center;
     justify-content: center;
     height: 70px;
+
     ${(props) => props.theme.media.mobile} {
-        height: 60px;
+        border-radius: 16px;
+        background: rgba(188, 188, 188, 0.15);
+        backdrop-filter: blur(6.4px);
+        -webkit-backdrop-filter: blur(6.4px);
     }
+
     border: 1.5px solid rgba(255, 255, 255, 0.5);
     border-radius: 8px;
 `;
@@ -168,9 +180,6 @@ export const SelectorBox = styled.div`
     height: 70px;
     user-select: none;
     ${(props) => props.theme.media.mobile} {
-        font-size: 1rem;
-        height: 50px;
-        gap: 15px;
     }
 `;
 

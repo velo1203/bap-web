@@ -15,7 +15,7 @@ export const GlobalStyle = createGlobalStyle`
   #root {
 
     height: 100dvh;
-    padding: 25px;
+    padding: 15px;
     background: url("/bg.jpg") no-repeat center center/cover;
     background-attachment: fixed;
   position: relative;

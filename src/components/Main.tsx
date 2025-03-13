@@ -127,7 +127,7 @@ function Main() {
     if (startIndex === null) return null; // startIndex가 설정되기 전까지 렌더링 방지
 
     const sliderSettings = {
-        dots: true,
+        dots: false,
         infinite: true,
         speed: 500,
         slidesToShow: 1,
@@ -140,54 +140,31 @@ function Main() {
     return (
         <Center>
             <Container>
-                <Header>
-                    <h1>밥.net</h1>
+                {!isMobile ? (
+                    <Header>
+                        <h1>밥.net</h1>
 
-                    {isMobile ? (
-                        <>
-                            <MenuSection>
-                                <DaySelector onChange={setDay} />
-                            </MenuSection>
-                            <MenuSection>
-                                <Menu
-                                    onClick={() =>
-                                        (window.location.href = config.github)
-                                    }
-                                >
-                                    <FontAwesomeIcon icon={faGithub} />
-                                </Menu>
-
-                                <Menu
-                                    onClick={() =>
-                                        (window.location.href = config.insta)
-                                    }
-                                >
-                                    <FontAwesomeIcon icon={faInstagram} />
-                                </Menu>
-                            </MenuSection>
-                        </>
-                    ) : (
-                        <>
-                            <MenuSection>
-                                <Menu
-                                    onClick={() =>
-                                        (window.location.href = config.github)
-                                    }
-                                >
-                                    <FontAwesomeIcon icon={faGithub} />
-                                </Menu>
-                                <DaySelector onChange={setDay} />
-                                <Menu
-                                    onClick={() =>
-                                        (window.location.href = config.insta)
-                                    }
-                                >
-                                    <FontAwesomeIcon icon={faInstagram} />
-                                </Menu>
-                            </MenuSection>
-                        </>
-                    )}
-                </Header>
+                        <MenuSection>
+                            <Menu
+                                onClick={() =>
+                                    (window.location.href = config.github)
+                                }
+                            >
+                                <FontAwesomeIcon icon={faGithub} />
+                            </Menu>
+                            <DaySelector onChange={setDay} />
+                            <Menu
+                                onClick={() =>
+                                    (window.location.href = config.insta)
+                                }
+                            >
+                                <FontAwesomeIcon icon={faInstagram} />
+                            </Menu>
+                        </MenuSection>
+                    </Header>
+                ) : (
+                    <DaySelector onChange={setDay} />
+                )}
 
                 {isMobile ? (
                     <MobileCarouselWrapper>
