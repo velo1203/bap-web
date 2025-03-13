@@ -197,8 +197,8 @@ export const ArrowButton = styled.button`
         background-color: rgba(0, 0, 0, 0.08);
     }
     ${(props) => props.theme.media.mobile} {
-        width: 40px;
-        height: 40px;
+        width: 75px;
+        height: 50px;
         font-size: 1.2rem;
     }
 `;
@@ -213,6 +213,6 @@ export const DateDisplay = styled.div`
     transition: all 0.1s ease-in-out;
     ${(props) => props.theme.media.mobile} {
         padding: 5px 5px;
-        font-size: 0.9rem;
+        font-size: 1rem;
     }
 `;
