@@ -148,6 +148,7 @@ export const MobileCarouselWrapper = styled.div`
     @media (min-width: 768px) {
         display: none;
     }
+
     .slick-dots {
         bottom: -25px;
     }
