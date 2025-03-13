@@ -5,33 +5,49 @@ const shimmer = keyframes`
   100% { background-position: 200px 0; }
 `;
 
+const glassmorphism = css`
+    background: rgba(188, 188, 188, 0.15);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(6.4px);
+    -webkit-backdrop-filter: blur(6.4px);
+    border: 1.5px solid rgba(255, 255, 255, 0.5);
+`;
+
+export const Center = styled.div`
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+
 export const Container = styled.div`
     max-width: 1200px;
+    width: 100%;
     margin: 0 auto;
 `;
 
 export const Header = styled.header`
     width: 100%;
-    padding: 35px;
-    margin-top: 50px;
+    padding: 15px;
+
     text-align: center;
     display: flex;
     flex-direction: column;
-
     justify-content: center;
-    background-color: ${(props) => props.theme.colors.uiBackground};
+    ${glassmorphism};
+
     h1 {
         font-size: ${(props) => props.theme.fontsize.large};
-        color: ${(props) => props.theme.colors.dimigo};
+
+        margin-bottom: 15px;
     }
 
     ${(props) => props.theme.media.mobile} {
         padding: 20px;
         margin-top: 5px;
-
         h1 {
-            font-size: ${(props) =>
-                props.theme.mobileFontSize.medium}; /* 모바일에서 크기 조정 */
+            font-size: ${(props) => props.theme.mobileFontSize.medium};
             margin-bottom: 8px;
         }
     }
@@ -42,11 +58,11 @@ export const MenuSection = styled.div`
     justify-content: center;
     align-items: center;
     gap: 20px;
-    margin-top: 30px;
+
     ${(props) => props.theme.media.mobile} {
         flex-direction: row;
-        gap: 4px;
-        margin-top: 4px;
+        gap: 8px;
+        margin-top: 8px;
     }
 `;
 
@@ -57,20 +73,22 @@ export const Menu = styled.div`
     align-items: center;
     justify-content: center;
     font-size: 30px;
-    background: ${(props) => props.theme.colors.uiBackground};
-    border-radius: 5px;
-    box-shadow: inset 0 0 0 2px ${(props) => props.theme.colors.border}; /* 연한 테두리 */
-    transition: all 0.1s ease-in-out;
+
     cursor: pointer;
+    transition: all 0.2s ease-in-out;
 
     &:hover {
-        background-color: ${(props) => props.theme.colors.background};
+        background-color: rgba(0, 0, 0, 0.08);
     }
     ${(props) => props.theme.media.mobile} {
-        height: 50px;
-        font-size: 20px;
+        height: 60px;
+        font-size: 24px;
         flex: 1;
     }
+    border: 1.5px solid rgba(255, 255, 255, 0.5);
+    border-radius: 8px;
+    backdrop-filter: blur(6.4px);
+    -webkit-backdrop-filter: blur(6.4px);
 `;
 
 export const CardSection = styled.div`
@@ -84,31 +102,30 @@ export const CardSection = styled.div`
 export const Card = styled.div<{ loading?: boolean }>`
     width: 100%;
     padding: 20px;
-    background: ${(props) => props.theme.colors.uiBackground};
-    border-radius: 5px;
+    ${glassmorphism};
     cursor: pointer;
-
     text-align: left;
-    transition: all 0.2s ease-in-out;
+    transition: all 0.15s ease-in-out;
     min-height: 500px;
+
     ${(props) =>
         props.loading &&
         css`
             background: linear-gradient(
                 90deg,
-                #f8f9fa 25%,
-                rgb(241, 241, 241) 50%,
-                #f8f9fa 75%
+                rgba(68, 68, 68, 0.1) 25%,
+                rgba(183, 183, 183, 0.2) 50%,
+                rgba(68, 68, 68, 0.1) 75%
             );
             background-size: 200% 100%;
             animation: ${shimmer} 1.5s infinite linear;
         `};
 
     &:hover {
-        background-color: ${(props) => props.theme.colors.uiBackground_hover};
-        transform: scale(1.02);
+        background-color: rgba(0, 0, 0, 0.08);
     }
 `;
+
 export const Title = styled.h2`
     font-size: ${(props) => props.theme.fontsize.medium};
     color: ${(props) => props.theme.colors.primary};
@@ -119,16 +136,78 @@ export const Description = styled.p`
     font-size: ${(props) => props.theme.fontsize.small};
     color: ${(props) => props.theme.colors.text};
 `;
+
 export const MobileCarouselWrapper = styled.div`
     width: 100%;
-
-    margin-top: 20px;
-
+    margin-top: 8px;
     @media (min-width: 768px) {
-        display: none; /* 데스크탑에서는 캐러셀 숨김 */
+        display: none;
     }
-
     .slick-dots {
         bottom: -25px;
+    }
+`;
+
+export const SelectorContainer = styled.div`
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 70px;
+    ${(props) => props.theme.media.mobile} {
+        height: 60px;
+    }
+    border: 1.5px solid rgba(255, 255, 255, 0.5);
+    border-radius: 8px;
+    backdrop-filter: blur(6.4px);
+    -webkit-backdrop-filter: blur(6.4px);
+`;
+
+export const SelectorBox = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 1.2rem;
+    height: 70px;
+    user-select: none;
+    ${(props) => props.theme.media.mobile} {
+        font-size: 1rem;
+        height: 50px;
+        gap: 15px;
+    }
+`;
+
+export const ArrowButton = styled.button`
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    color: ${(props) => props.theme.colors.primary};
+    transition: all 0.1s ease-in-out;
+    border-radius: 5px;
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.08);
+    }
+    ${(props) => props.theme.media.mobile} {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+`;
+
+export const DateDisplay = styled.div`
+    font-weight: bold;
+    padding: 10px 30px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.1s ease-in-out;
+    ${(props) => props.theme.media.mobile} {
+        padding: 5px 5px;
+        font-size: 0.9rem;
     }
 `;

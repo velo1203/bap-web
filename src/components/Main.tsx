@@ -7,6 +7,7 @@ import {
     MenuSection,
     CardSection,
     MobileCarouselWrapper,
+    Center,
 } from "./styled.Main";
 import axios, { AxiosError } from "axios";
 import { format, addDays } from "date-fns";
@@ -122,61 +123,78 @@ function Main() {
     };
 
     return (
-        <Container>
-            <Header>
-                <h1>
-                    디미고 <span>밥</span>
-                </h1>
+        <Center>
+            <Container>
+                <Header>
+                    <h1>밥.net</h1>
+
+                    {isMobile ? (
+                        <>
+                            <MenuSection>
+                                <DaySelector onChange={setDay} />
+                            </MenuSection>
+                            <MenuSection>
+                                <Menu
+                                    onClick={() =>
+                                        (window.location.href = config.github)
+                                    }
+                                >
+                                    <FontAwesomeIcon icon={faGithub} />
+                                </Menu>
+
+                                <Menu
+                                    onClick={() =>
+                                        (window.location.href = config.insta)
+                                    }
+                                >
+                                    <FontAwesomeIcon icon={faInstagram} />
+                                </Menu>
+                            </MenuSection>
+                        </>
+                    ) : (
+                        <>
+                            <MenuSection>
+                                <Menu
+                                    onClick={() =>
+                                        (window.location.href = config.github)
+                                    }
+                                >
+                                    <FontAwesomeIcon icon={faGithub} />
+                                </Menu>
+                                <DaySelector onChange={setDay} />
+                                <Menu
+                                    onClick={() =>
+                                        (window.location.href = config.insta)
+                                    }
+                                >
+                                    <FontAwesomeIcon icon={faInstagram} />
+                                </Menu>
+                            </MenuSection>
+                        </>
+                    )}
+                </Header>
 
                 {isMobile ? (
-                    <>
-                        <MenuSection>
-                            <DaySelector onChange={setDay} />
-                        </MenuSection>
-                        <MenuSection>
-                            <Menu
-                                onClick={() =>
-                                    (window.location.href = config.github)
-                                }
-                            >
-                                <FontAwesomeIcon icon={faGithub} />
-                            </Menu>
-
-                            <Menu
-                                onClick={() =>
-                                    (window.location.href = config.insta)
-                                }
-                            >
-                                <FontAwesomeIcon icon={faInstagram} />
-                            </Menu>
-                        </MenuSection>
-                    </>
+                    <MobileCarouselWrapper>
+                        <Slider {...sliderSettings}>
+                            {mealData.map((meal, index) => (
+                                <MealCard
+                                    key={index}
+                                    type={meal.type}
+                                    menu={
+                                        isLoading
+                                            ? ""
+                                            : isError
+                                            ? errorComment
+                                            : meal.menu
+                                    }
+                                    loading={isLoading}
+                                />
+                            ))}
+                        </Slider>
+                    </MobileCarouselWrapper>
                 ) : (
-                    <>
-                        <MenuSection>
-                            <Menu
-                                onClick={() =>
-                                    (window.location.href = config.github)
-                                }
-                            >
-                                <FontAwesomeIcon icon={faGithub} />
-                            </Menu>
-                            <DaySelector onChange={setDay} />
-                            <Menu
-                                onClick={() =>
-                                    (window.location.href = config.insta)
-                                }
-                            >
-                                <FontAwesomeIcon icon={faInstagram} />
-                            </Menu>
-                        </MenuSection>
-                    </>
-                )}
-            </Header>
-
-            {isMobile ? (
-                <MobileCarouselWrapper>
-                    <Slider {...sliderSettings}>
+                    <CardSection>
                         {mealData.map((meal, index) => (
                             <MealCard
                                 key={index}
@@ -191,27 +209,10 @@ function Main() {
                                 loading={isLoading}
                             />
                         ))}
-                    </Slider>
-                </MobileCarouselWrapper>
-            ) : (
-                <CardSection>
-                    {mealData.map((meal, index) => (
-                        <MealCard
-                            key={index}
-                            type={meal.type}
-                            menu={
-                                isLoading
-                                    ? ""
-                                    : isError
-                                    ? errorComment
-                                    : meal.menu
-                            }
-                            loading={isLoading}
-                        />
-                    ))}
-                </CardSection>
-            )}
-        </Container>
+                    </CardSection>
+                )}
+            </Container>
+        </Center>
     );
 }
 

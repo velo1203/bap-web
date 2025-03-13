@@ -11,10 +11,14 @@ export const GlobalStyle = createGlobalStyle`
     color: ${(props) => props.theme.colors.text};
 
   }
-  body {
 
+  #root {
+
+    height: 100dvh;
     padding: 25px;
-    background-color: ${(props) => props.theme.colors.background};
+    background: url("/bg.jpg") no-repeat center center/cover;
+    background-attachment: fixed;
+  position: relative;
 
   }
 
