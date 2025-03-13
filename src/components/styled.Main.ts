@@ -87,8 +87,6 @@ export const Menu = styled.div`
     }
     border: 1.5px solid rgba(255, 255, 255, 0.5);
     border-radius: 8px;
-    backdrop-filter: blur(6.4px);
-    -webkit-backdrop-filter: blur(6.4px);
 `;
 
 export const CardSection = styled.div`
@@ -159,8 +157,6 @@ export const SelectorContainer = styled.div`
     }
     border: 1.5px solid rgba(255, 255, 255, 0.5);
     border-radius: 8px;
-    backdrop-filter: blur(6.4px);
-    -webkit-backdrop-filter: blur(6.4px);
 `;
 
 export const SelectorBox = styled.div`
