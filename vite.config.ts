@@ -6,7 +6,7 @@ export default defineConfig({
         VitePWA({
             registerType: "autoUpdate",
             devOptions: {
-                enabled: true,
+                enabled: false,
             },
             manifest: {
                 name: "밥",
@@ -35,6 +35,9 @@ export default defineConfig({
                 ],
             },
             workbox: {
+                clientsClaim: true,
+                skipWaiting: true,
+                cleanupOutdatedCaches: true,
                 runtimeCaching: [
                     {
                         urlPattern: ({ request }) =>
@@ -55,6 +58,14 @@ export default defineConfig({
                         handler: "StaleWhileRevalidate",
                         options: {
                             cacheName: "assets-cache",
+                        },
+                    },
+                    {
+                        urlPattern: "/*",
+                        handler: "NetworkFirst",
+                        options: {
+                            cacheName: "no-cache",
+                            networkTimeoutSeconds: 10,
                         },
                     },
                 ],
