@@ -19,6 +19,10 @@ export const Center = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+
+    ${(props) => props.theme.media.mobile} {
+        align-items: flex-start;
+    }
 `;
 
 export const Container = styled.div`
@@ -81,9 +85,7 @@ export const Menu = styled.div`
         background-color: rgba(0, 0, 0, 0.08);
     }
     ${(props) => props.theme.media.mobile} {
-        height: 60px;
-        font-size: 24px;
-        flex: 1;
+        display: none;
     }
     border: 1.5px solid rgba(255, 255, 255, 0.5);
     border-radius: 8px;
@@ -106,7 +108,7 @@ export const Card = styled.div<{ loading?: boolean }>`
     cursor: pointer;
     text-align: left;
     transition: all 0.15s ease-in-out;
-    min-height: 500px;
+    height: 500px;
 
     ${(props) =>
         props.loading &&
