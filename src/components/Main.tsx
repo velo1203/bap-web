@@ -55,6 +55,21 @@ function Main() {
     const [Day, setDay] = useState<Date>(new Date());
     const [startIndex, setStartIndex] = useState<number | null>(null);
     const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth < 768);
+    useEffect(() => {
+        // 서비스 워커 업데이트
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.getRegistrations().then((registrations) => {
+                for (const registration of registrations) {
+                    registration.update(); // 기존 서비스 워커 업데이트 요청
+                }
+            });
+
+            navigator.serviceWorker.addEventListener("controllerchange", () => {
+                console.log("새 버전이 감지됨, 페이지를 새로고침합니다.");
+                window.location.reload(); // 새 버전 적용 후 자동 새로고침
+            });
+        }
+    }, []);
 
     useEffect(() => {
         const handleResize = () => {
