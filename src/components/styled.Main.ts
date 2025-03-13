@@ -52,7 +52,7 @@ export const Header = styled.header`
         margin-top: 5px;
         h1 {
             font-size: ${(props) => props.theme.mobileFontSize.medium};
-            margin-bottom: 8px;
+            margin-bottom: 16px;
         }
     }
 `;
@@ -65,8 +65,6 @@ export const MenuSection = styled.div`
 
     ${(props) => props.theme.media.mobile} {
         flex-direction: row;
-        gap: 8px;
-        margin-top: 8px;
     }
 `;
 
