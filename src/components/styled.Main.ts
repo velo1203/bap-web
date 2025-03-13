@@ -61,7 +61,7 @@ export const MenuSection = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 15px;
 
     ${(props) => props.theme.media.mobile} {
         flex-direction: row;
@@ -71,7 +71,7 @@ export const MenuSection = styled.div`
 `;
 
 export const Menu = styled.div`
-    width: 120px;
+    width: 15%;
     height: 70px;
     display: flex;
     align-items: center;
