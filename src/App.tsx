@@ -3,6 +3,7 @@ import { theme } from "./theme";
 import { GlobalStyle } from "./Globalstyle";
 import Main from "./components/Main";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import "./registerSW";
 
 const queryClient = new QueryClient();
 
