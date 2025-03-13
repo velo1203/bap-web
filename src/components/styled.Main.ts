@@ -111,7 +111,7 @@ export const Card = styled.div<{ loading?: boolean }>`
     cursor: pointer;
     text-align: left;
     transition: all 0.15s ease-in-out;
-    min-height: 520px;
+    min-height: 550px;
 
     ${(props) =>
         props.loading &&
